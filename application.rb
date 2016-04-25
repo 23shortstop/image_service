@@ -5,8 +5,12 @@ require 'mongoid'
 require 'dotenv'
 require 'sinatra-initializers'
 require 'carrierwave/mongoid'
+require 'active_model_serializers'
+
 require './uploaders/image_uploader'
 require './models/task'
+require './serializers/base_serializer'
+require './serializers/task_serializer'
 
 Dotenv.load
 
@@ -23,7 +27,7 @@ class Application < Sinatra::Application
 
     task = Task.find params['id']
 
-    json(task.to_response)
+    json(task)
   end
 
   post '/task' do
@@ -36,9 +40,7 @@ class Application < Sinatra::Application
 
     task.save!
 
-    task = Task.create! params
-
-    json(task.to_response)
+    json (task)
   end
 
   error Sinatra::Param::InvalidParameterError do

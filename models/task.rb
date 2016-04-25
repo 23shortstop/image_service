@@ -8,16 +8,7 @@ class Task
   enum	:status,    [:pending, :in_progress, :done]
   field	:params,    type: Hash
 
-  mount_uploader :image, ImageUploader
-
-  def to_response
-    { task:
-      {
-        id: self.id.to_s,
-        status: self.status,
-        image: self.image.url
-      }
-    }
-  end
+  mount_uploader :image,  ImageUploader
+  mount_uploader :result, ImageUploader
 
 end
