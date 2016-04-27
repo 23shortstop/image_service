@@ -4,7 +4,7 @@ class Task
   include Mongoid::Document
   include Mongoid::Enum
 
-  enum	:operation, [:resize]
+  enum	:operation, [:resize, :rotate, :negate]
   enum	:status,    [:pending, :in_progress, :done]
   field	:params,    type: Hash
 

@@ -11,6 +11,7 @@ require './uploaders/image_uploader'
 require './models/task'
 require './serializers/base_serializer'
 require './serializers/task_serializer'
+require './lib/handler'
 
 Dotenv.load
 
@@ -33,7 +34,7 @@ class Application < Sinatra::Application
   post '/task' do
     param :operation, String,  required: true,  in: Task::OPERATION.map { |t| t.to_s }
     param :image,     String,  required: true
-    param :params,    Hash,    required: true
+    param :params,    Hash
 
     task = Task.new params
     task.remote_image_url = params['image']
