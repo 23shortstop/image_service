@@ -7,7 +7,7 @@ class Handler
   	operation = choose_operation(task.operation)
   	result = operation.call(image, task.params)
   	task.result = result
-  	task.status = :done
+    task.status = :done
   	task.save!
   end
 

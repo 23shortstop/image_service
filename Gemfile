@@ -11,4 +11,5 @@ gem 'carrierwave-mongoid', '>=0.8.0'
 gem 'mongoid-enum'
 gem 'sinatra-initializers'
 gem 'active_model_serializers'
-gem "mini_magick"
+gem 'mini_magick'
+gem 'sidekiq'

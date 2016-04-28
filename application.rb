@@ -6,12 +6,15 @@ require 'dotenv'
 require 'sinatra-initializers'
 require 'carrierwave/mongoid'
 require 'active_model_serializers'
+require 'sidekiq'
+require 'sidekiq/api'
+require 'sidekiq/web'
 
 require './uploaders/image_uploader'
 require './models/task'
 require './serializers/base_serializer'
 require './serializers/task_serializer'
-require './lib/handler'
+require './lib/worker'
 
 Dotenv.load
 
@@ -40,6 +43,8 @@ class Application < Sinatra::Application
     task.remote_image_url = params['image']
 
     task.save!
+
+    Worker.perform_async(task.id.to_s)
 
     json (task)
   end
