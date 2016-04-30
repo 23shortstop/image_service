@@ -1,8 +1,6 @@
 require 'sidekiq'
-#require 'mongoid'
 
 require './lib/handler'
-#require './models/task'
 
 class Worker
   include Sidekiq::Worker

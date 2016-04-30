@@ -3,7 +3,7 @@ require 'mini_magick'
 class Handler
   
   def handle(task)
-    image = MiniMagick::Image.open(task.image.url)
+    image = MiniMagick::Image.open(task.image.current_path)
     operation = choose_operation(task.operation)
     result = operation.call(image, task.params)
     task.result = result
