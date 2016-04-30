@@ -18,7 +18,7 @@ require './lib/worker'
 
 Dotenv.load
 
-class Application < Sinatra::Application
+class ImageEditor < Sinatra::Application
   register Sinatra::Initializers
   configure do
     set :raise_sinatra_param_exceptions, true
