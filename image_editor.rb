@@ -51,7 +51,7 @@ class ImageEditor < Sinatra::Application
 
   error Sinatra::Param::InvalidParameterError do
     status 422
-    { error: "#{env['sinatra.error'].param} is invalid" }.to_s
+    { error: "Parameter \'#{env['sinatra.error'].param}\' is invalid. #{env['sinatra.error'].message}" }.to_s
   end
 
   error Mongoid::Errors::DocumentNotFound do
