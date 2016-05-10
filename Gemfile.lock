@@ -92,6 +92,7 @@ DEPENDENCIES
   mongoid (>= 5.0.2)
   mongoid-enum
   rack-contrib
+  rack-test
   shotgun
   sidekiq
   sinatra

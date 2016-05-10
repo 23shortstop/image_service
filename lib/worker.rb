@@ -1,6 +1,6 @@
 require 'sidekiq'
 
-require './lib/handler'
+require_relative './handler'
 
 class Worker
   include Sidekiq::Worker

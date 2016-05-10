@@ -10,20 +10,28 @@ require 'sidekiq'
 require 'sidekiq/api'
 require 'sidekiq/web'
 
-require './uploaders/image_uploader'
-require './models/task'
-require './serializers/base_serializer'
-require './serializers/task_serializer'
-require './lib/worker'
+require_relative './uploaders/image_uploader'
+require_relative './models/task'
+require_relative './serializers/base_serializer'
+require_relative './serializers/task_serializer'
+require_relative './lib/worker'
+require_relative './lib/authentication/timestamp_auth'
 
 Dotenv.load
 
 class ImageEditor < Sinatra::Application
   register Sinatra::Initializers
+  autenticator = TimestampAuth.new(5)
+  
   configure do
     set :raise_sinatra_param_exceptions, true
     set show_exceptions: false
     set :public_folder, 'uploads'
+  end
+
+  before do
+    param :timestamp,  String,  required: true
+    autenticator.authenticate(params['timestamp'])
   end
 
   get '/task' do
@@ -57,5 +65,10 @@ class ImageEditor < Sinatra::Application
   error Mongoid::Errors::DocumentNotFound do
     status 404
     { error: "Not found" }.to_s
+  end
+
+  error BaseAuth::AuthError do
+    status 403
+    { error: env['sinatra.error'].message }.to_s
   end
 end
