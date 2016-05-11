@@ -9,7 +9,7 @@ class TimestampAuth < BaseAuth
 
   def authenticate(timestamp)
     difference = Time.now.to_i - decrypt(timestamp).to_i
-    raise AuthError, "Timestamp is invalid" unless difference.between?(0, @tolerance)
+    raise AuthError unless difference.between?(0, @tolerance)
   end
 
 end
