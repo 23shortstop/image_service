@@ -31,7 +31,7 @@ class ImageEditor < Sinatra::Application
 
   before do
     param :timestamp,  String,  required: true
-    autenticator.authenticate(params['timestamp'])
+    autenticator.authenticate(params.delete('timestamp'))
   end
 
   get '/task' do

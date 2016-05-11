@@ -1,3 +1,5 @@
+require 'base64'
+
 class BaseAuth
 
   def initialize
@@ -12,7 +14,7 @@ class BaseAuth
 
   def decrypt(data)
     begin
-      @p_key.public_decrypt(data)
+      @p_key.public_decrypt(Base64.decode64(data))
     rescue Exception => e
       raise AuthError
     end
